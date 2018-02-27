@@ -1,0 +1,6 @@
+#first things first, vi bindings
+set editing-mode vi
+set keymap vi-command
+
+#ignore case on tab completion
+set completion-ignore-case on
