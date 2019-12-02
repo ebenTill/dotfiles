@@ -1,15 +1,39 @@
-execute pathogen#infect()
+if &compatible
+  set nocompatible
+endif
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  call dein#add('morhetz/gruvbox')
+  call dein#add('godlygeek/tabular')
+  call dein#add('kien/ctrlp.vim')
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('ervandew/supertab')
+
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+
+  call dein#end()
+  call dein#save_state()
+endif
 
 syntax on
 set number
 filetype plugin indent on
 set nocompatible
 set backspace=indent,eol,start
-set tabstop=2
+set tabstop=4
 set shiftwidth=2
 set expandtab
 set tw=80
-set softtabstop=2
+set softtabstop=0
 set smartcase
 set incsearch
 set showmode
@@ -49,11 +73,6 @@ if has("gui_running")
 endif
 
 
-map <silent> tw :GhcModTypeInsert<CR>
-map <silent> ts :GhcModSplitFunCase<CR>
-map <silent> tq :GhcModType<CR>
-map <silent> te :GhcModTypeClear<CR>
-
 map <Leader>n :NERDTreeToggle<CR>
 
 let g:haskell_tabular = 1
@@ -61,21 +80,4 @@ vmap a= :Tabularize /=<CR>
 vmap a; :Tabularize /::<CR>
 vmap a- :Tabularize /-><CR>
 let g:haskellmode_completion_ghc = 1
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-autocmd BufEnter *.hs set formatprg=pointfree
 
-
-let g:elm_jump_to_error = 0
-let g:elm_make_output_file = "elm.js"
-let g:elm_make_show_warnings = 0
-let g:elm_syntastic_show_warnings = 0
-let g:elm_browser_command = ""
-let g:elm_detailed_complete = 0
-let g:elm_format_autosave = 1
-let g:elm_format_fail_silently = 0
-let g:elm_setup_keybindings = 1
-
-call neocomplete#util#set_default_dictionary(
-  \ 'g:neocomplete#sources#omni#input_patterns',
-  \ 'elm',
-  \ '\.')
